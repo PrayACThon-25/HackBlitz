@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Reminder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        h1::before {
+            content: "📅";
+        }
+        h2 {
+            color: #333;
+            font-size: 20px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2::before {
+            content: "⏰";
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
+        input:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        button::before {
+            content: "✅";
+        }
+        button:hover {
+            background: #218838;
+        }
+        .flash-message {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .success { 
+            background-color: #d4edda; 
+            color: #155724;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            color: #721c24;
+        }
+        .warning { 
+            background-color: #fff3cd; 
+            color: #856404;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        li {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .back-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Home</a>
+        <h1>Appointment Reminder</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="patientName">Patient Name</label>
+                <input type="text" id="patientName" name="patientName" placeholder="Enter patient name" required>
+            </div>
+            <div class="form-group">
+                <label for="doctorName">Doctor Name</label>
+                <input type="text" id="doctorName" name="doctorName" placeholder="Enter doctor name" required>
+            </div>
+            <div class="form-group">
+                <label for="appointmentDate">Appointment Date</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+            </div>
+            <div class="form-group">
+                <label for="appointmentTime">Appointment Time</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit">Schedule Appointment</button>
+        </form>
+
+        <h2>Upcoming Appointments</h2>
+        <ul>
+        {% for appointment in appointments %}
+            <li>
+                {{ appointment.patient_name }} with Dr. {{ appointment.doctor_name }} 
+                on {{ appointment.date }} at {{ appointment.time }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

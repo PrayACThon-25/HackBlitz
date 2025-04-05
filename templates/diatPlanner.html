@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Planner - HealthMate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #f8f9fa);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .bot {
+            background: #e3f2fd;
+            margin-right: 50px;
+        }
+        .user {
+            background: #f0f9f0;
+            margin-left: 50px;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+        button {
+            padding: 15px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .back-btn:hover {
+            background: #0056b3;
+        }
+        .reset-btn {
+            background: #dc3545;
+            text-decoration: none;
+            color: white;
+        }
+        .reset-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Home</a>
+        <h1>🥗 Diet Planner Assistant</h1>
+        
+        <div class="chat-container">
+            {% for sender, message in conversation %}
+                <div class="message {% if sender == 'Bot' %}bot{% else %}user{% endif %}">
+                    <strong>{{ sender }}:</strong> {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST" class="input-container">
+            <input type="text" name="user_input" placeholder="Ask about diet plans, nutrition advice..." required>
+            <button type="submit">Send</button>
+        </form>
+        
+        <a href="/reset_diet" class="button reset-btn">Reset Conversation</a>
+    </div>
+</body>
+</html>

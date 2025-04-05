@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📅 Book Appointment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f8f9fa);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    h2 {
+      text-align: center;
+      color: #28a745;
+      font-size: 24px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    h2::before {
+      content: "🏥";
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: 500;
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #28a745;
+      box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .flash {
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .success { 
+      background-color: #d4edda; 
+      color: #155724;
+    }
+    .error { 
+      background-color: #f8d7da; 
+      color: #721c24;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    .back-btn:hover {
+      background: #0056b3;
+    }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M8 11l-7-7h14l-7 7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 35px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-btn">← Back to Home</a>
+    <h2>Book Appointment</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      <div>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <div>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div>
+        <label for="doctor">Select Doctor</label>
+        <select id="doctor" name="doctor" required>
+          <option value="">-- Select Doctor --</option>
+          <option value="Agarwal">Dr. Agarwal (General Physician)</option>
+          <option value="Meena">Dr. Meena (Cardiologist)</option>
+          <option value="Kumar">Dr. Kumar (Dermatologist)</option>
+        </select>
+      </div>
+      <div>
+        <label for="date">Appointment Date</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+      <div>
+        <label for="time">Appointment Time</label>
+        <input type="time" id="time" name="time" required>
+      </div>
+      <button type="submit">Book Appointment</button>
+    </form>
+  </div>
+</body>
+</html>
